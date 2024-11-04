@@ -50,8 +50,6 @@ Seperti namanya, **Stateless** dan **Stateful** widget memiliki perbedaan di *st
     ```
     Pada contoh di atas, kita tidak bisa secara langsung mengubah URL dari foto profil dan nama yang akan ditampilkan pada widget `ProfileBar` tersebut. Kita perlu mendefinisikan ulang widget `ProfileBar` dan memanggilnya ulang di kode kita.
 
-<br>
-
 - **Stateful Widget**
 
     Berbeda dengan stateless widget, stateful widget memiliki *inner state* yang dapat disimpan dan diubah lewat method `setState()` yang dimiliki oleh stateful widget. Modifikasi state bisa kita lakukan kapanpun selama widget belum dibuang (atau `dispose()`) di lifecycle-nya. Contoh dari widget bawaan yang mengimplementasikan stateful widget ini adalah `Checkbox`.
