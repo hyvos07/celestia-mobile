@@ -13,10 +13,10 @@ Celestia is a Hoyoverse Official Merchandise E-Commerce that offers some product
 **NPM**     : 2306220753<br>
 **Kelas**   : PBP F
 
-<!-- | Tugas Sebelumnya: | [Tugas 7](https://github.com/hyvos07/celestia/wiki/Tugas-2) |
+<!-- | Tugas Sebelumnya: | [Tugas 7](https://github.com/hyvos07/celestia-mobile/wiki/Tugas-7) |
 |-|-| -->
 
-<br>
+<!-- <br> -->
 
 ## Tugas 7
 ### Stateless Widget dan Stateful Widget
