@@ -107,7 +107,10 @@ Seperti namanya, **Stateless** dan **Stateful** widget memiliki perbedaan di *st
 
 
 ### Widget yang dipakai pada Tugas 7
-apa ya
+Berikut widget-widget yang dipakai pada Tugas 7 ini:
+| Nama Widget | Keterangan |
+| ----------- | ---------- |
+|  |  |
 
 
 ### Fungsi dari `setState()`
