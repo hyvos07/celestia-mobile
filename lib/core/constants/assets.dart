@@ -8,11 +8,12 @@ class Assets {
 class _SvgAssets {
   final String _basePath = 'assets/svgs';
 
-  // String get example => '$_basePath/example.svg';
+  String get logo => '$_basePath/logo.svg';
 }
 
 class _ImageAssets {
   final String _basePath = 'assets/images';
 
-  // String get example => '$_basePath/example.png';
+  String get logoHorizontal => '$_basePath/logo_horizontal.png';
+  String get furinaSad => '$_basePath/furina_sad.png';
 }

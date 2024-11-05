@@ -8,14 +8,51 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).colorScheme.secondary,
+      color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: () {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!")));
+            ..showSnackBar(
+              SnackBar(
+                content: Container(
+                  width: double.infinity,
+                  color: BaseColors.white,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 14,
+                          horizontal: 16,
+                        ),
+                        child: Icon(
+                          item.icon,
+                          color: item.color,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 14, 24, 14),
+                          child: Text(
+                            'Kamu telah menekan tombol ${item.name}',
+                            style: FontTheme.poppins12w500black(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                elevation: 3,
+                duration: const Duration(seconds: 1),
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.fromLTRB(42, 0, 42, 32),
+                padding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            );
         },
         child: Container(
           padding: const EdgeInsets.all(8),
@@ -49,6 +86,7 @@ class ItemCard extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
+  final Color color;
 
-  ItemHomepage(this.name, this.icon);
+  ItemHomepage(this.name, this.icon, this.color);
 }

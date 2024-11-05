@@ -1,7 +1,6 @@
 part of '_themes.dart';
 
 class BaseColors {
-
   /// Primary Color
   static const Color white = Color(0xFFFFFFFF);
   static const Color alabaster = Color(0xFFF8F8F8);
@@ -57,6 +56,13 @@ class BaseColors {
   // Blue Colors
   static const Color blue1 = Color(0xFF1A73E8);
   static const Color blue2 = Color(0xFF0A4C96);
+
+  // Furina Color Palette
+  static const Color furina1 = Color(0xFF353BA7);
+  static const Color furina2 = Color(0xFFF8F9FE);
+  static const Color furina3 = Color(0xFF2D4286);
+  static const Color furina4 = Color(0xFF698AE8);
+  static const Color furina5 = Color(0xFFE1E7F6);
 
   // Purple Hearth Colors
   static const Color purpleHearth200 = Color(0xFFC9CEFC);

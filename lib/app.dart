@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'core/themes/_themes.dart';
+import 'features/main/presentation/pages/_pages.dart';
 import 'services/navigations/_navigations.dart';
 
 final nav = NavigationService();
@@ -21,8 +22,8 @@ class App extends StatelessWidget {
       theme: AppTheme.lightTheme(),
       debugShowCheckedModeBanner: false,
       navigatorKey: nav.navigatorKey,
-      home: const Scaffold(
-        body: Scaffold(),
+      home: Scaffold(
+        body: MyHomePage(),
       ),
     );
   }
