@@ -126,7 +126,7 @@ Berikut widget-widget yang dipakai pada Tugas 7 ini:
 | `InkWell()` | Widget ini berfungsi mirip seperti tombol, yang menambahkan efek sentuh dan fungsi klik pada `ItemCard()`. |
 | `SnackBar()` | Menampilkan pesan singkat ketika sebuah `ItemCard()` ditekan, yang menampilkan pesan yang berkorelasi dengan `ItemCard()` yang ditekan. |
 | `Container()` | Widget ini berfungsi sebagai pembungkus general dari widget-widget di Flutter. Container bisa memiliki warna latar belakang, padding, margin, dan border sendiri. |
-| `Icon()` | Menampilkan ikon di `ItemCard()` yang berhubungan dengan nama iconnya. List dari setiap icon bisa dilihat [disini](https://api.flutter.dev/flutter/material/Icons-class.html). |
+| `Icon()` | Menampilkan gambar icon di `ItemCard()` yang berhubungan dengan nama iconnya. List dari setiap icon yang ada di Icons bisa dilihat [disini](https://api.flutter.dev/flutter/material/Icons-class.html). |
 
 
 ### Fungsi dari `setState()`
@@ -183,4 +183,160 @@ Singkatnya, `final` lebih cocok digunakan untuk variable immutable yang masih be
 
 
 ### Implementasi Checklist
-1. 
+- **Membuat Project Flutter yang baru**
+
+    Membuat Project Flutter yang baru bisa dilakukan dengan terminal command berikut,
+    ```bash
+    flutter create celestia_mobile
+    ```
+    atau dengan menjalankan **Ctrl + Shift + P** yang membuka Run Commands di VS Code.
+    ![Tahap 1](assignments/images/1project.png)
+
+
+    ![Tahap 2](assignments/images/2project.png)
+    
+    
+    ![Tahap 3](assignments/images/3project.png)
+
+    Setelah project berhasil dibuat, selanjutnya saya memodifikasi direktori `lib` dengan menambahkan beberapa constant value dan template `ThemeData` yang akan dipakai dalam aplikasi ini. File-file tersebut disimpan di dalam direktori [core](https://github.com/hyvos07/celestia-mobile/tree/main/lib/core).
+
+    Selanjutnya, saya juga memisahkan antara widget `App` yang menjadi widget dasar yang ada di aplikasi dari project ini, untuk menjaga readability dari source code project ini.
+
+    Setelah semua siap, saya membuat widget `MyHomePage` yang akan menjadi page utama saat membuka aplikasi ini.
+    ```dart
+    class MyHomePage extends StatelessWidget {
+        const MyHomePage({super.key});
+
+        @override
+        Widget build(BuildContext context) {
+            return Scaffold();
+        }
+    }
+    ```
+    File ini ditempatkan di direktori `features`, yang selanjutnya juga akan dipakai untuk memisahkan berbagai fitur yang dimiliki oleh aplikasi ini secara terstruktur.
+
+- **Membuat tiga tombol sederhana dengan ikon dan teks yang berhubungan.**
+
+    Membuat widget `ItemCard` untuk menampilkan setiap tombol yang berfungsi sesuai dengan spesifikasi yang dimasukkan ke dalamnya.
+    ```dart
+    class ItemCard extends StatelessWidget {
+        const ItemCard(this.item, {super.key});
+
+        final ItemHomepage item;
+
+        @override
+        Widget build(BuildContext context) {
+            return Material(
+                color: item.color,
+                borderRadius: BorderRadius.circular(12),
+                child: InkWell(
+                    onTap: () {},
+                    child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Center(
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                    Icon(
+                                        item.icon,
+                                        color: Colors.white,
+                                        size: 30.0,
+                                    ),
+                                    const Padding(padding: EdgeInsets.all(3)),
+                                    Text(
+                                        item.name,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                        ),
+                                    ),
+                                ],
+                            ),
+                        ),
+                    ),
+                ),
+            );
+        }
+    }
+    ```
+    Setiap spesifikasi yang harus dimiliki oleh setiap `ItemCard` disimpan di objek `ItemHomePage`.
+    ```dart
+    class ItemHomepage {
+        final String name;
+        final IconData icon;
+        final Color color;
+
+        ItemHomepage(this.name, this.icon, this.color);
+    }
+    ```
+
+- **Mengimplementasikan warna-warna yang berbeda untuk setiap tombol**
+
+    Untuk bisa membedakan warna pada setiap tombol `ItemCard`, saya menyisipkan atribut baru pada `ItemHomePage` yang akan menyimpan warna/color yang akan dipakai pada tombol tersebut, yang bernama `color`. Atribut ini akan dipakai sebagai isi dari `color` yang ada di widget `Material` yang membungkus widget `Inkwell` di `ItemCard`.
+    ```dart
+    return Material(
+        color: item.color,  // Menerima color yang ada di objek item tersebut.
+        borderRadius: BorderRadius.circular(12),
+        ...
+    ```
+
+- **Memunculkan `Snackbar` setiap kali `ItemCard` ditekan**
+
+    Untuk memunculkan snackbar setiap kali `ItemCard` ditekan, atribut `onTap` yang ada di `Inkwell` dimasukkan function untuk memanggil snackbar yang bernama `ScaffoldMessenger.of(context).showSnackBar();`. 
+    
+    Namun, untuk memastikan tidak ada snackbar yang menimpa satu sama lainnya saat kita menekan dua atau lebih tombol dalam waktu yang berdekatan, program perlu menjalankan `ScaffoldMessenger.of(context).hideCurrentSnackBar()` untuk menutup snackbar yang sedang ditampilkan. Pemanggilan kedua fungsi ini bisa digabung dengan cascade notation di Dart.
+
+    Function tadi dipanggil lewat method private yang ditaruh di `ItemCard` bernama `_showSnackbar()`.
+    ```dart
+    void _showSnackBar(BuildContext context) {
+        ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+            SnackBar(
+                content: Container(
+                    width: double.infinity,
+                    color: BaseColors.white,
+                    child: Row(
+                        children: [
+                            Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                    horizontal: 16,
+                                ),
+                                child: Icon(
+                                        item.icon,
+                                        color: item.color,
+                                ),
+                            ),
+                            Expanded(
+                                child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(0, 14, 24, 14),
+                                    child: Text(
+                                        // Snackbar berisi "Kamu telah menekan tombol" + Label tombol
+                                        'Kamu telah menekan tombol ${item.name}',
+                                        style: FontTheme.poppins12w500black(),
+                                    ),
+                                ),
+                            ),
+                        ],
+                    ),
+                ),
+                elevation: 3,
+                duration: const Duration(seconds: 1),
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.fromLTRB(42, 0, 42, 32),
+                padding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                ),
+            ),
+        );
+    }
+    ```
+    Lalu, atribut `onTap` pada `Inkwell` dimasukkan method yang baru saja ditaruh tersebut.
+    ```dart
+    child: InkWell(
+        onTap: () => _showSnackBar(context),    // Lambda Function
+    ...
+    ```
