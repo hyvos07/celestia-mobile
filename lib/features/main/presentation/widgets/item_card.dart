@@ -5,55 +5,57 @@ class ItemCard extends StatelessWidget {
 
   final ItemHomepage item;
 
+  void _showSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Container(
+            width: double.infinity,
+            color: BaseColors.white,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 16,
+                  ),
+                  child: Icon(
+                    item.icon,
+                    color: item.color,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 14, 24, 14),
+                    child: Text(
+                      'Kamu telah menekan tombol ${item.name}',
+                      style: FontTheme.poppins12w500black(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          elevation: 3,
+          duration: const Duration(seconds: 1),
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.fromLTRB(42, 0, 42, 32),
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
       color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Container(
-                  width: double.infinity,
-                  color: BaseColors.white,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 14,
-                          horizontal: 16,
-                        ),
-                        child: Icon(
-                          item.icon,
-                          color: item.color,
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 14, 24, 14),
-                          child: Text(
-                            'Kamu telah menekan tombol ${item.name}',
-                            style: FontTheme.poppins12w500black(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                elevation: 3,
-                duration: const Duration(seconds: 1),
-                behavior: SnackBarBehavior.floating,
-                margin: const EdgeInsets.fromLTRB(42, 0, 42, 32),
-                padding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            );
-        },
+        onTap: () => _showSnackBar(context),
         child: Container(
           padding: const EdgeInsets.all(8),
           child: Center(
