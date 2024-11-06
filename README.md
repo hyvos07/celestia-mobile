@@ -110,7 +110,23 @@ Seperti namanya, **Stateless** dan **Stateful** widget memiliki perbedaan di *st
 Berikut widget-widget yang dipakai pada Tugas 7 ini:
 | Nama Widget | Keterangan |
 | ----------- | ---------- |
-|  |  |
+| `App()` | Widget ini menjadi basis dari aplikasi dari project Flutter ini, yang berisi `MaterialApp()` dan `MyHomePage()` |
+| `MyHomePage()` | Widget ini berisi home page yang berisi konten yang menjadi tampilan utama saat pengguna membuka aplikasi dari awal. |
+| `Scaffold()` | Seperti bangunan yang mempunyai tiang besi dan beton, `Scaffold()` berperan seperti struktur dasar atau kerangka dari aplikasi kita.  |
+| `AppBar()` | Menampilkan app bar dari aplikasi kita di bagian atas layar. |
+| `Padding()` | Widget ini akan menambahkan space kosong yang diukur memakai pixel di sekitar widget yang dibungkusnya. |
+| `Column()` | Digunakan untuk menyusun widget-widget yang dibungkusnya secara **vertikal**. |
+| `Row()` | Digunakan untuk menyusun widget-widget yang dibungkusnya secara **horizontal**. |
+| `CircleAvatar()` | Menampilkan gambar (dalam konteks project ini foto profil dari pengguna) dalam bentuk lingkaran. |
+| `CachedNetworkImageProvider()` | Memuat gambar profil dari URL yang diberikan dan menyimpannya pada cache di dalam device. |
+| `Text()` | Menampilkan teks dengan gaya tertentu. Pada projek ini, widget `Text()` digunakan untuk menampilkan teks sapaan, nama, dan detail pengguna. |
+| `GridView.count()` | Widget yang membuat layout grid untuk menampilkan daftar item yang ada di widget `ItemCard()`. |
+| `ItemCard()` | Widget yang menampilkan tombol `Inkwell()`, dengan fungsionalitas bergantung dengan objek `ItemHomePage()` yang dimilikinya. |
+| `Material()` | Membungkus widget `InkWell()` untuk memberikan warna/color di latar belakang dan border radius. |
+| `InkWell()` | Widget ini berfungsi mirip seperti tombol, yang menambahkan efek sentuh dan fungsi klik pada `ItemCard()`. |
+| `SnackBar()` | Menampilkan pesan singkat ketika sebuah `ItemCard()` ditekan, yang menampilkan pesan yang berkorelasi dengan `ItemCard()` yang ditekan. |
+| `Container()` | Widget ini berfungsi sebagai pembungkus general dari widget-widget di Flutter. Container bisa memiliki warna latar belakang, padding, margin, dan border sendiri. |
+| `Icon()` | Menampilkan ikon di `ItemCard()` yang berhubungan dengan nama iconnya. List dari setiap icon bisa dilihat [disini](https://api.flutter.dev/flutter/material/Icons-class.html). |
 
 
 ### Fungsi dari `setState()`
@@ -164,3 +180,7 @@ Beberapa perbedaan `final` dan `const` dapat dilihat di beberapa kasus, seperti:
     ```
 
 Singkatnya, `final` lebih cocok digunakan untuk variable immutable yang masih belum tentu isinya dan dapat diisi pada saat runtime. Sedangkan itu, `const` akan lebih cocok untuk nilai tetap yang pasti ada dan kebutuhan performa yang lebih baik dalam menyimpan suatu data.
+
+
+### Implementasi Checklist
+1. 
