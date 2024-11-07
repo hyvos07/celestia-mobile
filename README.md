@@ -13,330 +13,94 @@ Celestia is a Hoyoverse Official Merchandise E-Commerce that offers some product
 **NPM**     : 2306220753<br>
 **Kelas**   : PBP F
 
-<!-- | Tugas Sebelumnya: | [Tugas 7](https://github.com/hyvos07/celestia-mobile/wiki/Tugas-7) |
-|-|-| -->
+| Tugas Sebelumnya: | [Tugas 7](https://github.com/hyvos07/celestia-mobile/wiki/Tugas-7) |
+|-|-|
 
-<!-- <br> -->
+<br>
 
-## Tugas 7
-### Stateless Widget dan Stateful Widget
-Seperti namanya, **Stateless** dan **Stateful** widget memiliki perbedaan di *state* yang mereka miliki.
-- **Stateless Widget**
+## Tugas 8
+### Kegunaan dari `const` di Flutter
 
-    Stateless widget tidak dapat menyimpan sebuah state di dalamnya. Hal ini berarti subkomponen dan atribut yang mereka punya (misalnya teks pada Text widget dan icon yang dimiliki oleh Icon widget) tidak dapat diubah lagi setelah widget di-build atau ditampilkan di layar. Untuk mengubah isi dari stateless widget, kita perlu melakukan pemanggilan ulang widget tersebut dan mengisinya dengan isi yang baru.
+Variable yang ditandai dengan `const` akan memiliki nilai yang sama dari awal aplikasi kita di-build hingga dihapus. Hal ini juga berarti isi dari variable `const` tidak dapat dirubah di kondisi apapun, berbeda dengan `final` yang valuenya bisa ditentukan pada saat aplikasi berjalan (runtime).
 
-    Berikut contoh dari Stateless Widget.
-    ```dart
-    class ProfileBar extends StatelessWidget {
-        const ProfileBar({
-            required this.imageUrl
-            required this.name,
-            super.key,
-        });
+Penggunaan const pada widget maupun variable yang kita tambahkan di kode kita bisa memiliki beberapa tujuan dan kegunaan, yaitu sebagai berikut.
 
-        final String imageUrl;
-        final String name;
+- Widget yang konstan tidak akan di-build ulang setiap kali ada perubahan state, sehingga lebih menghemat waktu dan memori yang digunakan di dalam aplikasi kita.
+- Konsistensi data yang berada di variable `const` terjaga dengan baik, yang membuatnya lebih mudah untuk diakses pada memori dan membantu proses debugging (karena value yang dimiliki variable `const` akan selalu sama, sehingga lebih mudah untuk dideteksi letaknya).
+- Widget atau variable dengan tipe `const` juga meningkatkan performa dari aplikasi yang kita miliki, karena pekerjaan yang harus dilakukan oleh aplikasi kita saat berjalan berkurang.
 
-        @override
-        Widget build(BuildContext context) {
-            return Row(
-                children: [
-                    CircleAvatar(backgroundImage: Image.network(imageUrl)),
-                    Text(name),
-                ],
-            );
-        }
-    }
-    ```
-    Pada contoh di atas, kita tidak bisa secara langsung mengubah URL dari foto profil dan nama yang akan ditampilkan pada widget `ProfileBar` tersebut. Kita perlu mendefinisikan ulang widget `ProfileBar` dan memanggilnya ulang di kode kita.
+Waktu yang tepat untuk menggunakan `const` pada variable yang kita miliki juga bergantung dengan tujuan dan maksud dari variable yang kita buat tersebut.
 
-- **Stateful Widget**
-
-    Berbeda dengan stateless widget, stateful widget memiliki *inner state* yang dapat disimpan dan diubah lewat method `setState()` yang dimiliki oleh stateful widget. Modifikasi state bisa kita lakukan kapanpun selama widget belum dibuang (atau `dispose()`) di lifecycle-nya. Contoh dari widget bawaan yang mengimplementasikan stateful widget ini adalah `Checkbox`.
-
-    Salah satu contoh dari stateful widget adalah widget counter yang mirip dengan yang ada di project demo Flutter.
-    ```dart
-    class CounterBar extends StatefulWidget {
-        const CounterBar({super.key});
-
-        @override
-        _CounterBarState createState() => _CounterBarState();
-    }
-
-    class _CounterBarState extends State<CounterBar> {
-        int _counter = 0;
-
-        // Menambahkan dan Mengurangi angka pada counter
-        // dapat dilakukan dengan memakai setState()
-
-        void _increment() {
-            setState(() {
-                // setState untuk menambahkan angka
-                _counter++;
-            });
-        }
-
-        void _decrement() {
-            setState(() {
-                // setState untuk mengurangi angka
-                if (_counter > 0) _counter--;
-            });
-        }
-
-        @override
-        Widget build(BuildContext context) {
-            return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                    IconButton(
-                        icon: const Icon(Icons.remove),
-                        onPressed: _decrement,
-                    ),
-                    Text('$_counter'),
-                    IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: _increment,
-                    ),
-                ],
-            );
-        }
-    }
-    ```
-
-    Pemakaian `setState()` di atas akan melakukan build ulang terhadap widget, yang akan menampilkan tampilan UI baru dengan data yang juga berbeda dengan state sebelumnya. Selain dari perubahan state, stateful widget sebenarnya juga bisa berubah dengan membuat ulang widget yang baru seperti pengubahan data pada stateless widget.
+| Sebaiknya memakai `const` | Tidak bisa memakai `const`, tapi bisa pakai `final` | Tidak bisa memakai keduanya. |
+| - | - | - |
+| Pada image path yang saya definisikan di dalam [assets.dart](lib/core/constants/assets.dart), saya menetapkan setiap image path yang disimpan bersifat constant dengan `const` karena lokasi dari image tersebut akan selalu sama pada device tempat aplikasi kita dijalankan. | Atribut `name` pada class `ItemHomePage` di Tugas 7 kemarin tidak selalu memiliki isi yang sama, namun akan selalu sama setelah valuenya ditentukan saat runtime. Pada kasus ini, penggunaan `final` lebih cocok. | Variable yang valuenya akan berubah-ubah terus berdasarkan input dari pengguna maupun berubah dari waktu ke waktu secara otomatis tidak dapat memiliki isi yang selalu sama, sehingga penggunaan `const` maupun `final` yang mementingkan konsistensi data setelah dideklarasikan tidak cocok pada kasus ini. |
 
 
-### Widget yang dipakai pada Tugas 7
-Berikut widget-widget yang dipakai pada Tugas 7 ini:
-| Nama Widget | Keterangan |
-| ----------- | ---------- |
-| `App()` | Widget ini menjadi basis dari aplikasi dari project Flutter ini, yang berisi `MaterialApp()` dan `MyHomePage()` |
-| `MyHomePage()` | Widget ini berisi home page yang berisi konten yang menjadi tampilan utama saat pengguna membuka aplikasi dari awal. |
-| `Scaffold()` | Seperti bangunan yang mempunyai tiang besi dan beton, `Scaffold()` berperan seperti struktur dasar atau kerangka dari aplikasi kita.  |
-| `AppBar()` | Menampilkan app bar dari aplikasi kita di bagian atas layar. |
-| `Padding()` | Widget ini akan menambahkan space kosong yang diukur memakai pixel di sekitar widget yang dibungkusnya. |
-| `Column()` | Digunakan untuk menyusun widget-widget yang dibungkusnya secara **vertikal**. |
-| `Row()` | Digunakan untuk menyusun widget-widget yang dibungkusnya secara **horizontal**. |
-| `CircleAvatar()` | Menampilkan gambar (dalam konteks project ini foto profil dari pengguna) dalam bentuk lingkaran. |
-| `CachedNetworkImageProvider()` | Memuat gambar profil dari URL yang diberikan dan menyimpannya pada cache di dalam device. |
-| `Text()` | Menampilkan teks dengan gaya tertentu. Pada projek ini, widget `Text()` digunakan untuk menampilkan teks sapaan, nama, dan detail pengguna. |
-| `GridView.count()` | Widget yang membuat layout grid untuk menampilkan daftar item yang ada di widget `ItemCard()`. |
-| `ItemCard()` | Widget yang menampilkan tombol `Inkwell()`, dengan fungsionalitas bergantung dengan objek `ItemHomePage()` yang dimilikinya. |
-| `Material()` | Membungkus widget `InkWell()` untuk memberikan warna/color di latar belakang dan border radius. |
-| `InkWell()` | Widget ini berfungsi mirip seperti tombol, yang menambahkan efek sentuh dan fungsi klik pada `ItemCard()`. |
-| `SnackBar()` | Menampilkan pesan singkat ketika sebuah `ItemCard()` ditekan, yang menampilkan pesan yang berkorelasi dengan `ItemCard()` yang ditekan. |
-| `Container()` | Widget ini berfungsi sebagai pembungkus general dari widget-widget di Flutter. Container bisa memiliki warna latar belakang, padding, margin, dan border sendiri. |
-| `Icon()` | Menampilkan gambar icon di `ItemCard()` yang berhubungan dengan nama iconnya. List dari setiap icon yang ada di Icons bisa dilihat [disini](https://api.flutter.dev/flutter/material/Icons-class.html). |
+### Perbedaan dari `Column` dan `Row`
+
+`Column` dan `Row` sama-sama memiliki kegunaan dalam mengatur layout dan alignment dari widget-widget yang dibungkusnya secara horizontal maupun vertikal.
+
+| Column | Row |
+| - | - |
+| Column mengatur widget-widget yang ia bungkus secara **vertikal**. Untuk mengatur alignment yang digunakan dalam penempatan widget-widget tersebut, terdapat `mainAxisAlignment` yang mengatur penempatan secara vertikal dan `crossAxisAlignment` yang mengatur penempatan secara horizontal. | Berbeda dengan column, row mengatur widget-widget yang dibungkusnya secara **horizontal**. Untuk mengatur alignment yang digunakan dalam penempatan widget-widget yang dibungkusnya, terdapat `mainAxisAlignment` yang mengatur penempatan secara horizontal dan `crossAxisAlignment` yang mengatur penempatan secara vertikal. | 
+
+**Tambahan**: `mainAxisAlignment` adalah atribut Column dan Row yang mengatur widget-widget sejajar dengan orientasi penempatan dari setiap layout widget tadi, sedangkan atribut `crossAxisAlignment` mengatur penempatan di arah kebalikan dari orientasi penempatan layout widget tersebut. Detailnya bisa digambarkan lewat ilustrasi yang [disediakan oleh Flutter](https://docs.flutter.dev/ui/layout#aligning-widgets) sendiri di bawah ini.
+
+<div align="center">
+    <span style="pointer-events: none;">
+        <img src="assignments/images/row_column.png" alt="Column vs Row" width="400">
+    </span>
+</div>
+
+### Elemen Input yang digunakan pada Tugas 8
+
+Di dalam tugas 8, aplikasi ini mengimplementasikan input form dengan widget input sebagai berikut:
+- a
+- a
+- a
+- a
+- a
+- a
+
+Selain input widget yang dipakai di atas, terdapat beberapa input widget lain bawaan Flutter seperti `Checkbox`, `Switch` dan `Slider`. Selain widget-widget bawaan tadi, banyak tersedia package eksternal dari berbagai widget input yang lebih kompleks dan modern di [pub.dev](https://pub.dev).
+
+### Konfigurasi Tema (Theme) Aplikasi yang Konsisten
+
+Tema pada aplikasi milik kita bisa diatur dalam `ThemeData` yang kita masukkan pada `MaterialApp` di file [`App`](lib/app.dart) yang akan di-render saat aplikasi berjalan. Secara default, `ThemeData` yang akan digunakan pada aplikasi kita adalah `ThemeData.light()` yang memberikan tema "light mode" pada aplikasi kita, dengan `primaryColor` atau warna utama yang dipakai adalah biru yang dimiliki logo Flutter.
+
+Dengan memakai ThemeData, Flutter akan menyimpan data dari warna, ukuran font, maupun konfigurasi lainnya ke dalam aplikasi kita. Jika sewaktu-waktu kita tidak memperinci `Color` maupun `TextStyle` yang akan kita gunakan dalam widget kita, Flutter bisa memakai apa yang telah kita definisikan di `ThemeData`. Dengan begitu, tema dari aplikasi yang kita gunakan bisa terjaga di setiap widget dan page yang kita buat.
+
+Di dalam aplikasi ini sendiri, saya memakai `ThemeData` saya sendiri yang saya definisikan di [`AppTheme`](lib/core/themes/app_theme.dart) pada folder `themes`. Tema ini akan memberikan efek "light mode" dan tampilan ruang kosong pada widget-widget di aplikasi ini menjadi lebih kecil dan merapat.
 
 
-### Fungsi dari `setState()`
-Seperti yang dijelaskan di awal, `setState()` adalah sebuah method untuk stateful widget yang dapat merubah state atau isi dari widget tersebut. Pada contoh widget `CounterBar` tadi, `setState()` dapat menambah atau mengurangi variable `_counter` yang menjadi isi dari widget `CounterBar` tersebut. Setiap kali `setState()` dipanggil, Flutter akan melakukan build ulang widget tersebut sehingga perubahan pada state akan tercermin pada tampilan UI.
+### Navigasi pada Aplikasi yang Memiliki Banyak Halaman
 
+Pada aplikasi yang memiliki banyak halaman/page yang dapat dikunjungi, kita bisa mengimplementasikan beberapa cara dalam berpindah-pindah halaman yang kita miliki tersebut. Salah satu cara termudah dalam melakukan navigasi antar halaman-halaman tersebut adalah dengan membuat setiap tombol untuk setiap halaman yang ada, seperti yang dilakukan pada aplikasi Tutorial 
 
-### Perbedaan di antara `const` dan `final`
-Sama seperti di bahasa pemrograman lainnya (Java, Javascript, dll), `const` dan `final` digunakan untuk membuat suatu variable yang nilainya tidak berubah (immutable). 
+Namun, cara tadi tidak efisien dan tidak ideal untuk pengalaman pengguna yang baik. Biasanya, terdapat beberapa pendekatan lainnya seperti:
 
-Bedanya, `final` memperbolehkan program untuk memodifikasi isi dari instance object yang ada di variable tersebut secara runtime, namun tidak bisa mengganti isi dari variable tersebut dengan instance yang lain. Berbeda dengan `final`, `const` memiliki nilai konstant dan tetap dari awal dideklarasikan atau saat di-compile, sehingga tidak akan bisa diubah isinya hingga akhir.
+- **Memakai Drawer/Sidebar**
 
-Beberapa perbedaan `final` dan `const` dapat dilihat di beberapa kasus, seperti:
+    Seperti aplikasi Mental Health Tracker yang dibuat di tutorial, navigasi antar halaman bisa diletakkan pada sisi sebelah kiri atau kanan layar yang dapat dibuka dengan memencet icon hamburger atau lainnya.
 
-- Inisialisasi
+    <img src="https://i.pinimg.com/originals/b0/7e/cb/b07ecbe5b18fd8af5a3631e67e16b1f3.gif" width="200">
 
-    ```dart
-    // final -- nilai bisa ditentukan saat runtime atau saat program di-compile
-    final time = DateTime.now();
+    Sumber: [Pinterest](https://i.pinimg.com/originals/b0/7e/cb/b07ecbe5b18fd8af5a3631e67e16b1f3.gif)
 
-    // const -- nilai sudah harus ditentukan dari awal sehingga compile process tidak error
-    const time = DateTime.now();            // Error :(
-    const time = DateTime(2023, 10, 1);     // OK :)
-    ```
+- **Memakai Tab Bar/App Bar**
 
-- Implementasi pada Collections (List, dll)
+    Navigasi antar halaman juga bisa dilakukan dengan Tab Navigation Bar yang biasanya terletak di bagian atas aplikasi. Contoh dari aplikasi yang memakai Tab Bar adalah X (sebelumnya Twitter).
 
-    ```dart
-    // final -- isi dari list bisa dirubah, namun tidak bisa di-reassign (immutable)
-    final listFinal = [1, 2, 3];
-    listFinal = [5, 6];      // Error :(
-    listFinal.add(4);        // OK :)
+    <img src="https://i.imgur.com/SlBEuRw.gif/img" width="200">
 
-    // const -- isinya tidak bisa diubah karena harus konstan
-    const listConst = [1, 2, 3];
-    listConst = [5, 6];      // Error :(
-    listConst.add(4);        // Error :(
-    ```
+- **Memakai Bottom Navigation Bar**
 
-- Sebagai Attribute Widget/Class
+    Navigasi antar halaman yang paling sering digunakan pada aplikasi mobile adalah Bottom Navigation Bar. Letaknya yang berada di bawah layar memudahkan pengguna berpindah halaman dengan satu tangan, yang membuatnya lebih sering dipakai dibandingkan dengan drawer atau tab bar
 
-    ```dart
-    class Employee {
-        const Employee({required this.name});
+    <img src="https://cdn.prod.website-files.com/657dc4c3b1ac103f4cb8b127/65afa398bcbdcaf9e7623d67_dot-animation.gif" width="200">
 
-        // final -- bisa diinisialisasi saat constructor terpanggil
-        final String name;
+    Sumber: [www.thewidlarzgroup.com](https://www.thewidlarzgroup.com/blog/creating-custom-animated-bottom-tab-and-drawer-navigation)
 
-        // const -- harus langsung diberi nilai yang konstan
-        const bool paid = true;
-    }
-    ```
+<br>
 
-Singkatnya, `final` lebih cocok digunakan untuk variable immutable yang masih belum tentu isinya dan dapat diisi pada saat runtime. Sedangkan itu, `const` akan lebih cocok untuk nilai tetap yang pasti ada dan kebutuhan performa yang lebih baik dalam menyimpan suatu data.
-
-
-### Implementasi Checklist
-- **Membuat Project Flutter yang baru**
-
-    Membuat Project Flutter yang baru bisa dilakukan dengan terminal command berikut,
-    ```bash
-    flutter create celestia_mobile
-    ```
-    atau dengan menjalankan **Ctrl + Shift + P** yang membuka Run Commands di VS Code.
-    ![Tahap 1](assignments/images/1project.png)
-
-
-    ![Tahap 2](assignments/images/2project.png)
-    
-    
-    ![Tahap 3](assignments/images/3project.png)
-
-    Setelah project berhasil dibuat, selanjutnya saya memodifikasi direktori `lib` dengan menambahkan beberapa constant value dan template `ThemeData` yang akan dipakai dalam aplikasi ini. File-file tersebut disimpan di dalam direktori [core](https://github.com/hyvos07/celestia-mobile/tree/main/lib/core).
-
-    Selanjutnya, saya juga memisahkan antara widget `App` yang menjadi widget dasar yang ada di aplikasi dari project ini, untuk menjaga readability dari source code project ini.
-
-    Setelah semua siap, saya membuat widget `MyHomePage` yang akan menjadi page utama saat membuka aplikasi ini.
-    ```dart
-    class MyHomePage extends StatelessWidget {
-        const MyHomePage({super.key});
-
-        @override
-        Widget build(BuildContext context) {
-            return Scaffold();
-        }
-    }
-    ```
-    File ini ditempatkan di direktori `features`, yang selanjutnya juga akan dipakai untuk memisahkan berbagai fitur yang dimiliki oleh aplikasi ini secara terstruktur.
-
-- **Membuat tiga tombol sederhana dengan ikon dan teks yang berhubungan.**
-
-    Membuat widget `ItemCard` untuk menampilkan setiap tombol yang berfungsi sesuai dengan spesifikasi yang dimasukkan ke dalamnya.
-    ```dart
-    class ItemCard extends StatelessWidget {
-        const ItemCard(this.item, {super.key});
-
-        final ItemHomepage item;
-
-        @override
-        Widget build(BuildContext context) {
-            return Material(
-                color: item.color,
-                borderRadius: BorderRadius.circular(12),
-                child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Center(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                    Icon(
-                                        item.icon,
-                                        color: Colors.white,
-                                        size: 30.0,
-                                    ),
-                                    const Padding(padding: EdgeInsets.all(3)),
-                                    Text(
-                                        item.name,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                        ),
-                                    ),
-                                ],
-                            ),
-                        ),
-                    ),
-                ),
-            );
-        }
-    }
-    ```
-    Setiap spesifikasi yang harus dimiliki oleh setiap `ItemCard` disimpan di objek `ItemHomePage`.
-    ```dart
-    class ItemHomepage {
-        final String name;
-        final IconData icon;
-        final Color color;
-
-        ItemHomepage(this.name, this.icon, this.color);
-    }
-    ```
-
-- **Mengimplementasikan warna-warna yang berbeda untuk setiap tombol**
-
-    Untuk bisa membedakan warna pada setiap tombol `ItemCard`, saya menyisipkan atribut baru pada `ItemHomePage` yang akan menyimpan warna/color yang akan dipakai pada tombol tersebut, yang bernama `color`. Atribut ini akan dipakai sebagai isi dari `color` yang ada di widget `Material` yang membungkus widget `Inkwell` di `ItemCard`.
-    ```dart
-    return Material(
-        color: item.color,  // Menerima color yang ada di objek item tersebut.
-        borderRadius: BorderRadius.circular(12),
-        ...
-    ```
-
-- **Memunculkan `Snackbar` setiap kali `ItemCard` ditekan**
-
-    Untuk memunculkan snackbar setiap kali `ItemCard` ditekan, atribut `onTap` yang ada di `Inkwell` dimasukkan function untuk memanggil snackbar yang bernama `ScaffoldMessenger.of(context).showSnackBar();`. 
-    
-    Namun, untuk memastikan tidak ada snackbar yang menimpa satu sama lainnya saat kita menekan dua atau lebih tombol dalam waktu yang berdekatan, program perlu menjalankan `ScaffoldMessenger.of(context).hideCurrentSnackBar()` untuk menutup snackbar yang sedang ditampilkan. Pemanggilan kedua fungsi ini bisa digabung dengan cascade notation di Dart.
-
-    Function tadi dipanggil lewat method private yang ditaruh di `ItemCard` bernama `_showSnackbar()`.
-    ```dart
-    void _showSnackBar(BuildContext context) {
-        ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-            SnackBar(
-                content: Container(
-                    width: double.infinity,
-                    color: BaseColors.white,
-                    child: Row(
-                        children: [
-                            Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 14,
-                                    horizontal: 16,
-                                ),
-                                child: Icon(
-                                        item.icon,
-                                        color: item.color,
-                                ),
-                            ),
-                            Expanded(
-                                child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 14, 24, 14),
-                                    child: Text(
-                                        // Snackbar berisi "Kamu telah menekan tombol" + Label tombol
-                                        'Kamu telah menekan tombol ${item.name}',
-                                        style: FontTheme.poppins12w500black(),
-                                    ),
-                                ),
-                            ),
-                        ],
-                    ),
-                ),
-                elevation: 3,
-                duration: const Duration(seconds: 1),
-                behavior: SnackBarBehavior.floating,
-                margin: const EdgeInsets.fromLTRB(42, 0, 42, 32),
-                padding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                ),
-            ),
-        );
-    }
-    ```
-    Lalu, atribut `onTap` pada `Inkwell` dimasukkan method yang baru saja ditaruh tersebut.
-    ```dart
-    child: InkWell(
-        onTap: () => _showSnackBar(context),    // Lambda Function
-    ...
-    ```
+Secara personal, saya lebih suka untuk memakai Bottom Navigation Bar dalam menangani navigasi tiap halaman yang aplikasi saya miliki. Saya lebih sering menggunakan Bottom Navigation Bar juga karena pengalaman pengguna yang cara ini miliki lebih baik dalam memberi kemudahan pengguna dalam memakai aplikasi yang kita miliki.
