@@ -5,7 +5,16 @@ class ItemCard extends StatelessWidget {
 
   final ItemHomepage item;
 
-  void _showSnackBar(BuildContext context) {
+  void _onTap(BuildContext context) {
+    if (item.name == "Tambah Product") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AddProductPage(),
+        ),
+      );
+    }
+
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
@@ -55,7 +64,7 @@ class ItemCard extends StatelessWidget {
       color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
-        onTap: () => _showSnackBar(context),
+        onTap: () => _onTap(context),
         child: Container(
           padding: const EdgeInsets.all(8),
           child: Center(

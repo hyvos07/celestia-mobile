@@ -36,6 +36,7 @@ class MyHomePage extends StatelessWidget {
                 : 'Night';
 
     return Scaffold(
+      backgroundColor: BaseColors.alabaster,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -46,63 +47,65 @@ class MyHomePage extends StatelessWidget {
         ),
         backgroundColor: BaseColors.furina3,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 32,
-                    backgroundColor: BaseColors.gray5,
-                    backgroundImage: CachedNetworkImageProvider(
-                      'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 32,
+                      backgroundColor: BaseColors.gray5,
+                      backgroundImage: CachedNetworkImageProvider(
+                        'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text.rich(
-                        TextSpan(
-                          text: 'Good $time, ',
-                          style: FontTheme.poppins16w700black(),
-                          children: [
-                            TextSpan(
-                              text: name,
-                              style: FontTheme.poppins16w700black().copyWith(
-                                color: BaseColors.blue1,
+                    const SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            text: 'Good $time, ',
+                            style: FontTheme.poppins16w700black(),
+                            children: [
+                              TextSpan(
+                                text: name,
+                                style: FontTheme.poppins16w700black().copyWith(
+                                  color: BaseColors.blue1,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          style: FontTheme.poppins16w700black(),
                         ),
-                        style: FontTheme.poppins16w700black(),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        '$npm - $className',
-                        style: FontTheme.poppins12w600black(),
-                      ),
-                    ],
-                  ),
-                ],
+                        const SizedBox(height: 2),
+                        Text(
+                          '$npm - $className',
+                          style: FontTheme.poppins12w600black(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 32),
-            GridView.count(
-              primary: true,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 3,
-              shrinkWrap: true,
-              children: items.map((ItemHomepage item) {
-                return ItemCard(item);
-              }).toList(),
-            ),
-          ],
+              const SizedBox(height: 32),
+              GridView.count(
+                primary: true,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 3,
+                shrinkWrap: true,
+                children: items.map((ItemHomepage item) {
+                  return ItemCard(item);
+                }).toList(),
+              ),
+            ],
+          ),
         ),
       ),
     );
