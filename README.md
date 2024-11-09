@@ -4,7 +4,7 @@ Celestia is a Hoyoverse Official Merchandise E-Commerce that offers some product
 
 <br>
 
-> **Note:** <br> This is not an actual online shop for Hoyoverse Merchandise. <br>The mockup design on the banner was taken from [Tokopedia](https://tokopedia.com) Mobile App.
+> **Note:** <br> This is not an actual online shop for Hoyoverse Merchandise.
 
 <br>
 
