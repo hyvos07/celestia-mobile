@@ -42,7 +42,9 @@ Waktu yang tepat untuk menggunakan `const` pada variable yang kita miliki juga b
 
 | Column | Row |
 | - | - |
-| Column mengatur widget-widget yang ia bungkus secara **vertikal**. Untuk mengatur alignment yang digunakan dalam penempatan widget-widget tersebut, terdapat `mainAxisAlignment` yang mengatur penempatan secara vertikal dan `crossAxisAlignment` yang mengatur penempatan secara horizontal. | Berbeda dengan column, row mengatur widget-widget yang dibungkusnya secara **horizontal**. Untuk mengatur alignment yang digunakan dalam penempatan widget-widget yang dibungkusnya, terdapat `mainAxisAlignment` yang mengatur penempatan secara horizontal dan `crossAxisAlignment` yang mengatur penempatan secara vertikal. | 
+| Column mengatur widget-widget yang ia bungkus secara **vertikal**. | Row mengatur widget-widget yang dibungkusnya secara **horizontal** |
+| `mainAxisAlignment` pada Column mengatur penempatan secara **vertikal**| `mainAxisAlignment` pada Column mengatur penempatan secara **horizontal** |
+| `crossAxisAlignment` pada Column mengatur penempatan secara **horizontal**. | `crossAxisAlignment` pada Row mengatur penempatan secara **vertikal**. | 
 
 **Tambahan**: `mainAxisAlignment` adalah atribut Column dan Row yang mengatur widget-widget sejajar dengan orientasi penempatan dari setiap layout widget tadi, sedangkan atribut `crossAxisAlignment` mengatur penempatan di arah kebalikan dari orientasi penempatan layout widget tersebut. Detailnya bisa digambarkan lewat ilustrasi yang [disediakan oleh Flutter](https://docs.flutter.dev/ui/layout#aligning-widgets) sendiri di bawah ini.
 
@@ -55,12 +57,11 @@ Waktu yang tepat untuk menggunakan `const` pada variable yang kita miliki juga b
 ### Elemen Input yang digunakan pada Tugas 8
 
 Di dalam tugas 8, aplikasi ini mengimplementasikan input form dengan widget input sebagai berikut:
-- a
-- a
-- a
-- a
-- a
-- a
+- `TextFormField` sebagai input field biasa yang digunakan untuk form input pada Flutter.
+- `TextArea` **(Custom Widget, cc: [CopsOnRoad](https://stackoverflow.com/a/57848399))** yang dibuat dari TextFormField dan konfigurasi lainnya yang membuat ukuran input fieldnya dapat diperbesar.
+- [`ImagePicker`](https://pub.dev/packages/image_picker) **(Package Eksternal)** sebagai penerima input file foto yang diambil dari galeri/penyimpanan perangkat.
+
+(**Note:** Terdapat pula custom switch pada form, namun hanya digunakan untuk memilih opsi dari input gambar.)
 
 Selain input widget yang dipakai di atas, terdapat beberapa input widget lain bawaan Flutter seperti `Checkbox`, `Switch` dan `Slider`. Selain widget-widget bawaan tadi, banyak tersedia package eksternal dari berbagai widget input yang lebih kompleks dan modern di [pub.dev](https://pub.dev).
 
@@ -75,13 +76,13 @@ Di dalam aplikasi ini sendiri, saya memakai `ThemeData` saya sendiri yang saya d
 
 ### Navigasi pada Aplikasi yang Memiliki Banyak Halaman
 
-Pada aplikasi yang memiliki banyak halaman/page yang dapat dikunjungi, kita bisa mengimplementasikan beberapa cara dalam berpindah-pindah halaman yang kita miliki tersebut. Salah satu cara termudah dalam melakukan navigasi antar halaman-halaman tersebut adalah dengan membuat setiap tombol untuk setiap halaman yang ada, seperti yang dilakukan pada aplikasi Tutorial 
+Pada aplikasi yang memiliki banyak halaman/page yang dapat dikunjungi, kita bisa mengimplementasikan beberapa cara dalam berpindah-pindah halaman yang kita miliki tersebut. Salah satu cara termudah dalam melakukan navigasi antar halaman-halaman tersebut adalah dengan membuat setiap tombol untuk setiap halaman yang ada, seperti yang juga dilakukan pada aplikasi ini.
 
 Namun, cara tadi tidak efisien dan tidak ideal untuk pengalaman pengguna yang baik. Biasanya, terdapat beberapa pendekatan lainnya seperti:
 
 - **Memakai Drawer/Sidebar**
 
-    Seperti aplikasi Mental Health Tracker yang dibuat di tutorial, navigasi antar halaman bisa diletakkan pada sisi sebelah kiri atau kanan layar yang dapat dibuka dengan memencet icon hamburger atau lainnya.
+    Seperti aplikasi Mental Health Tracker yang dibuat di tutorial dan aplikasi ini, navigasi antar halaman bisa diletakkan pada sisi sebelah kiri atau kanan layar yang dapat dibuka dengan memencet icon hamburger atau lainnya.
 
     <img src="https://i.pinimg.com/originals/b0/7e/cb/b07ecbe5b18fd8af5a3631e67e16b1f3.gif" width="200">
 
@@ -95,7 +96,7 @@ Namun, cara tadi tidak efisien dan tidak ideal untuk pengalaman pengguna yang ba
 
 - **Memakai Bottom Navigation Bar**
 
-    Navigasi antar halaman yang paling sering digunakan pada aplikasi mobile adalah Bottom Navigation Bar. Letaknya yang berada di bawah layar memudahkan pengguna berpindah halaman dengan satu tangan, yang membuatnya lebih sering dipakai dibandingkan dengan drawer atau tab bar
+    Navigasi antar halaman yang paling sering digunakan pada aplikasi mobile adalah Bottom Navigation Bar. Letaknya yang berada di bawah layar memudahkan pengguna berpindah halaman dengan satu tangan, yang membuatnya lebih sering dipakai dibandingkan dengan drawer atau tab bar.
 
     <img src="https://cdn.prod.website-files.com/657dc4c3b1ac103f4cb8b127/65afa398bcbdcaf9e7623d67_dot-animation.gif" width="200">
 
