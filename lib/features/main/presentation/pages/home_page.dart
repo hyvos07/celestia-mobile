@@ -38,6 +38,9 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: BaseColors.alabaster,
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: BaseColors.white,
+        ),
         centerTitle: true,
         title: Text(
           'Celestia',
@@ -47,6 +50,7 @@ class MyHomePage extends StatelessWidget {
         ),
         backgroundColor: BaseColors.furina3,
       ),
+      drawer: const LeftDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24),

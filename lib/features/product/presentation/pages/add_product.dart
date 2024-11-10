@@ -33,13 +33,8 @@ class _AddProductPageState extends State<AddProductPage> {
     return Scaffold(
       backgroundColor: BaseColors.alabaster,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: BaseColors.white,
-            size: 20,
-          ),
-          onPressed: () => Navigator.pop(context),
+        iconTheme: const IconThemeData(
+          color: BaseColors.white,
         ),
         centerTitle: true,
         title: Text(
@@ -50,6 +45,7 @@ class _AddProductPageState extends State<AddProductPage> {
         ),
         backgroundColor: BaseColors.furina3,
       ),
+      drawer: const LeftDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -66,14 +62,18 @@ class _AddProductPageState extends State<AddProductPage> {
                         style: FontTheme.poppins14w600black(),
                       ),
                       const SizedBox(height: 10),
-                      FormNameField(nameController: nameController),
+                      FormNameField(
+                        nameController: nameController,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         "Price",
                         style: FontTheme.poppins14w600black(),
                       ),
                       const SizedBox(height: 10),
-                      FormPriceField(priceController: priceController),
+                      FormPriceField(
+                        priceController: priceController,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         "Description",
@@ -81,35 +81,44 @@ class _AddProductPageState extends State<AddProductPage> {
                       ),
                       const SizedBox(height: 10),
                       FormDescField(
-                          descriptionController: descriptionController),
+                        descriptionController: descriptionController,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         "Stock",
                         style: FontTheme.poppins14w600black(),
                       ),
                       const SizedBox(height: 10),
-                      FormStockField(stockController: stockController),
+                      FormStockField(
+                        stockController: stockController,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         "Character",
                         style: FontTheme.poppins14w600black(),
                       ),
                       const SizedBox(height: 10),
-                      FormCharaField(charaController: charaController),
+                      FormCharaField(
+                        charaController: charaController,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         "Game",
                         style: FontTheme.poppins14w600black(),
                       ),
                       const SizedBox(height: 10),
-                      FormGameField(gameController: gameController),
+                      FormGameField(
+                        gameController: gameController,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         "Category",
                         style: FontTheme.poppins14w600black(),
                       ),
                       const SizedBox(height: 10),
-                      FormCategoryField(categoryController: categoryController),
+                      FormCategoryField(
+                        categoryController: categoryController,
+                      ),
                       const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
