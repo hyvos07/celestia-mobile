@@ -8,6 +8,7 @@ class LeftDrawer extends StatelessWidget {
     return Drawer(
       backgroundColor: BaseColors.alabaster,
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(
@@ -24,7 +25,7 @@ class LeftDrawer extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "Hoyoverse Merchandise\nStore",
+                  "Hoyoverse\nMerchandise Store",
                   textAlign: TextAlign.center,
                   style: FontTheme.poppins10w500white().copyWith(
                     fontSize: 15,
@@ -65,7 +66,7 @@ class LeftDrawer extends StatelessWidget {
                     vertical: 5,
                   ),
                   leading: const Icon(
-                    Icons.shopping_bag_outlined,
+                    Icons.add_circle_outline,
                     size: 32,
                   ),
                   title: Text(
@@ -77,6 +78,28 @@ class LeftDrawer extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const AddProductPage(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 17.5,
+                    vertical: 5,
+                  ),
+                  leading: const Icon(
+                    Icons.shopping_bag_outlined,
+                    size: 32,
+                  ),
+                  title: Text(
+                    'All Product',
+                    style: FontTheme.poppins14w600black(),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AllProduct(),
                       ),
                     );
                   },

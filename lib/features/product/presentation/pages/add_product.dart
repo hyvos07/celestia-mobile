@@ -30,6 +30,8 @@ class _AddProductPageState extends State<AddProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Scaffold(
       backgroundColor: BaseColors.alabaster,
       appBar: AppBar(
@@ -162,7 +164,7 @@ class _AddProductPageState extends State<AddProductPage> {
               ),
             ),
           ),
-          _postButton(),
+          _postButton(request, context),
         ],
       ),
     );
@@ -190,191 +192,41 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   // For now ini muncul dialog aja
-  Future<void> postProduct() async {
-    await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: BaseColors.alabaster,
-          title: Text(
-            'Product berhasil ditambahkan!',
-            style: FontTheme.poppins12w600black().copyWith(
-              fontSize: 16,
-            ),
-          ),
-          content: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Name:',
-                        style: FontTheme.poppins12w600black(),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(nameController.text),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Price:',
-                        style: FontTheme.poppins12w600black(),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(priceController.text),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Description:',
-                        style: FontTheme.poppins12w600black(),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(descriptionController.text),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Stock:',
-                        style: FontTheme.poppins12w600black(),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(stockController.text),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Character:',
-                        style: FontTheme.poppins12w600black(),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(charaController.text),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Game:',
-                        style: FontTheme.poppins12w600black(),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(gameController.text),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        'Category:',
-                        style: FontTheme.poppins12w600black(),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text(categoryController.text),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  'Image:',
-                  style: FontTheme.poppins12w600black(),
-                ),
-                const SizedBox(height: 15),
-                isUsingFile
-                    ? _imagePreview(isModal: true)
-                    : Container(
-                        height: 200,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: imageUrlController.text.isNotEmpty
-                                ? CachedNetworkImageProvider(
-                                    imageUrlController.text,
-                                  )
-                                : const AssetImage(
-                                    'assets/images/furina_sad.png',
-                                  ) as ImageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              child: Text(
-                'OK',
-                style: FontTheme.poppins12w600black().copyWith(
-                  color: BaseColors.furina3,
-                ),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-                _formKey.currentState!.reset();
-                setState(() {
-                  nameController.clear();
-                  priceController.clear();
-                  descriptionController.clear();
-                  stockController.clear();
-                  charaController.clear();
-                  gameController.clear();
-                  categoryController.clear();
-                  imageUrlController.clear();
-                  imageFile = null;
-                });
-              },
-            ),
-          ],
+  Future<void> postProduct(CookieRequest request, BuildContext context) async {
+    final response = await request.postJson(
+            Endpoints.create,
+            jsonEncode(<String, String>{
+                'name': nameController.text,
+                'price': priceController.text,
+                'description': descriptionController.text,
+                'stock': stockController.text,
+                'chara': charaController.text,
+                'game': gameController.text,
+                'category': categoryController.text,
+                'image': imageUrlController.text, // For now URL aja
+            }),
         );
-      },
-    );
+        if (context.mounted) {
+            if (response['status'] == 'Successfully added product') {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(
+                content: Text("Produk baru berhasil ditambahkan!"),
+                ));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyHomePage()),
+                );
+            } else {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(
+                    content:
+                        Text("Terdapat kesalahan, silakan coba lagi."),
+                ));
+            }
+        }
   }
 
-  Widget _postButton() {
+  Widget _postButton(CookieRequest request, BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
@@ -397,7 +249,7 @@ class _AddProductPageState extends State<AddProductPage> {
         child: ElevatedButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              postProduct();
+              postProduct(request, context);
             }
           },
           style: ElevatedButton.styleFrom(

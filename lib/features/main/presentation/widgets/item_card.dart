@@ -6,16 +6,23 @@ class ItemCard extends StatelessWidget {
   final ItemHomepage item;
 
   void _onTap(BuildContext context) {
-    if (item.name == "Tambah Product") {
+    if (item.name == "Tambah Produk") {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => const AddProductPage(),
         ),
       );
-    }
-
-    ScaffoldMessenger.of(context)
+    } else if (item.name == "Lihat Produk Kamu") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AllProduct(),
+        ),
+      );
+    } else if (item.name == "Logout") {
+      // nanti
+      ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
@@ -38,7 +45,7 @@ class ItemCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 14, 24, 14),
                     child: Text(
-                      'Kamu telah menekan tombol ${item.name}',
+                      "Berhasil Logout!",
                       style: FontTheme.poppins12w500black(),
                     ),
                   ),
@@ -56,6 +63,7 @@ class ItemCard extends StatelessWidget {
           ),
         ),
       );
+    }
   }
 
   @override

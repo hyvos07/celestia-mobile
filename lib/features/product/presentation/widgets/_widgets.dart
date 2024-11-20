@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:celestia_mobile/features/product/data/models/product_model.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,3 +22,5 @@ part 'form_image_url_field.dart';
 part 'text_area.dart';
 part 'url_toggle.dart';
 part 'image_picker_box.dart';
+
+part 'product_card.dart';

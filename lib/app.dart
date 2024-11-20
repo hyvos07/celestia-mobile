@@ -1,8 +1,10 @@
+import 'package:celestia_mobile/features/auth/presentation/pages/_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 import 'core/themes/_themes.dart';
-import 'features/main/presentation/pages/_pages.dart';
 import 'services/navigations/_navigations.dart';
 
 final nav = NavigationService();
@@ -17,13 +19,19 @@ class App extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
 
-    return MaterialApp(
-      title: 'Celestia',
-      theme: AppTheme.lightTheme(),
-      debugShowCheckedModeBanner: false,
-      navigatorKey: nav.navigatorKey,
-      home: Scaffold(
-        body: MyHomePage(),
+    return Provider(
+      create: (_) {
+        CookieRequest request = CookieRequest();
+        return request;
+      },
+      child: MaterialApp(
+        title: 'Celestia',
+        theme: AppTheme.lightTheme(),
+        debugShowCheckedModeBanner: false,
+        navigatorKey: nav.navigatorKey,
+        home: const Scaffold(
+          body: LoginPage(),
+        ),
       ),
     );
   }

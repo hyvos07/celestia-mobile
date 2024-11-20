@@ -13,95 +13,178 @@ Celestia is a Hoyoverse Official Merchandise E-Commerce that offers some product
 **NPM**     : 2306220753<br>
 **Kelas**   : PBP F
 
-| Tugas Sebelumnya: | [Tugas 7](https://github.com/hyvos07/celestia-mobile/wiki/Tugas-7) |
-|-|-|
+| Tugas Sebelumnya: | [Tugas 7](https://github.com/hyvos07/celestia-mobile/wiki/Tugas-7) | [Tugas 8](https://github.com/hyvos07/celestia-mobile/wiki/Tugas-8) |
+|-|-|-|
 
 <br>
 
-## Tugas 8
-### Kegunaan dari `const` di Flutter
+## Tugas 9
+### Manfaat Model dalam Pengambilan dan Pengiriman data JSON
 
-Variable yang ditandai dengan `const` akan memiliki nilai yang sama dari awal aplikasi kita di-build hingga dihapus. Hal ini juga berarti isi dari variable `const` tidak dapat dirubah di kondisi apapun, berbeda dengan `final` yang valuenya bisa ditentukan pada saat aplikasi berjalan (runtime).
+Dalam mengirim dan menerima data pada JSON, kita bisa memanfaatkan konsep Object-Oriented Programming pada data yang kita terima, sehingga data tersebut bisa kita buat sebagai suatu objek yang akan kita gunakan di aplikasi kita. Pendekatan ini diimplementasikan dalam membentuk sebuah class Model dengan isi atribut-atribut yang berkorelasi dengan data kita.
 
-Penggunaan const pada widget maupun variable yang kita tambahkan di kode kita bisa memiliki beberapa tujuan dan kegunaan, yaitu sebagai berikut.
+Pembuatan class Model dapat memudahkan kita untuk memastikan integritas data yang diterima, sehingga dapat sesuai dengan bentuk data yang kita perlukan di aplikasi kita. Adanya class Model ini juga bisa membantu program kita untuk mendeteksi kesalahan format data dari awal penerimaan atau pengiriman data, sehingga tidak error pada saat digunakan.
 
-- Widget yang konstan tidak akan di-build ulang setiap kali ada perubahan state, sehingga lebih menghemat waktu dan memori yang digunakan di dalam aplikasi kita.
-- Konsistensi data yang berada di variable `const` terjaga dengan baik, yang membuatnya lebih mudah untuk diakses pada memori dan membantu proses debugging (karena value yang dimiliki variable `const` akan selalu sama, sehingga lebih mudah untuk dideteksi letaknya).
-- Widget atau variable dengan tipe `const` juga meningkatkan performa dari aplikasi yang kita miliki, karena pekerjaan yang harus dilakukan oleh aplikasi kita saat berjalan berkurang.
+Pembuatan class Model juga bisa memberikan kemudahan untuk menjaga kode kita lebih terstruktur dan mudah dibaca. Selain itu, perubahan jenis dan atribut data juga lebih mudah dilakukan karena sudah terpusat pada class Model tersebut.
 
-Waktu yang tepat untuk menggunakan `const` pada variable yang kita miliki juga bergantung dengan tujuan dan maksud dari variable yang kita buat tersebut.
-
-| Sebaiknya memakai `const` | Tidak bisa memakai `const`, tapi bisa pakai `final` | Tidak bisa memakai keduanya. |
-| - | - | - |
-| Pada setiap elemen `Color` yang saya definisikan di dalam [base_colors.dart](lib/core/themes/base_colors.dart), saya menetapkan setiap warna yang disimpan bersifat constant dengan `const`, karena setiap warna yang akan digunakan dari file tersebut tidak akan berubah sewaktu-waktu dan pasti memiliki value yang selalu sama dengan nama variablenya. | Atribut `name` pada class `ItemHomePage` di Tugas 7 kemarin tidak selalu memiliki isi yang sama, namun akan selalu sama setelah valuenya ditentukan saat runtime. Pada kasus ini, penggunaan `final` lebih cocok. | Variable yang valuenya akan berubah-ubah terus berdasarkan input dari pengguna maupun berubah dari waktu ke waktu secara otomatis tidak dapat memiliki isi yang selalu sama, sehingga penggunaan `const` maupun `final` yang mementingkan konsistensi data setelah dideklarasikan tidak cocok pada kasus ini. |
+Penggunaan model di Flutter sendiri tidak wajib, karena kita bisa saja memakai struktur JSON langsung (yang menjadi Map di Dart), namun tentu saja penggunaan class Model ini bisa lebih memudahkan kita dalam mengatur dan mengolah data yang kita punya.
 
 
-### Perbedaan dari `Column` dan `Row`
+### Fungsi dari Library `http`
 
-`Column` dan `Row` sama-sama memiliki kegunaan dalam mengatur layout dan alignment dari widget-widget yang dibungkusnya secara horizontal maupun vertikal.
-
-| Column | Row |
-| - | - |
-| Column mengatur widget-widget yang ia bungkus secara **vertikal**. | Row mengatur widget-widget yang dibungkusnya secara **horizontal** |
-| `mainAxisAlignment` pada Column mengatur penempatan secara **vertikal**| `mainAxisAlignment` pada Column mengatur penempatan secara **horizontal** |
-| `crossAxisAlignment` pada Column mengatur penempatan secara **horizontal**. | `crossAxisAlignment` pada Row mengatur penempatan secara **vertikal**. | 
-
-**Tambahan**: `mainAxisAlignment` adalah atribut Column dan Row yang mengatur widget-widget sejajar dengan orientasi penempatan dari setiap layout widget tadi, sedangkan atribut `crossAxisAlignment` mengatur penempatan di arah kebalikan dari orientasi penempatan layout widget tersebut. Detailnya bisa digambarkan lewat ilustrasi yang [disediakan oleh Flutter](https://docs.flutter.dev/ui/layout#aligning-widgets) sendiri di bawah ini.
-
-<div align="center">
-    <span style="pointer-events: none;">
-        <img src="assignments/images/row_column.png" alt="Column vs Row" width="400">
-    </span>
-</div>
-
-### Elemen Input yang digunakan pada Tugas 8
-
-Di dalam tugas 8, aplikasi ini mengimplementasikan input form dengan widget input sebagai berikut:
-- `TextFormField` sebagai input field biasa yang digunakan untuk form input pada Flutter.
-- `TextArea` **(Custom Widget, cc: [CopsOnRoad](https://stackoverflow.com/a/57848399))** yang dibuat dari TextFormField dan konfigurasi lainnya yang membuat ukuran input fieldnya dapat diperbesar.
-- [`ImagePicker`](https://pub.dev/packages/image_picker) **(Package Eksternal)** sebagai penerima input file foto yang diambil dari galeri/penyimpanan perangkat.
-
-(**Note:** Terdapat pula custom switch pada form, namun hanya digunakan untuk memilih opsi dari input gambar.)
-
-Selain input widget yang dipakai di atas, terdapat beberapa input widget lain bawaan Flutter seperti `Checkbox`, `Switch` dan `Slider`. Selain widget-widget bawaan tadi, banyak tersedia package eksternal dari berbagai widget input yang lebih kompleks dan modern di [pub.dev](https://pub.dev).
-
-### Konfigurasi Tema (Theme) Aplikasi yang Konsisten
-
-Tema pada aplikasi milik kita bisa diatur dalam `ThemeData` yang kita masukkan pada `MaterialApp` di file [`App`](lib/app.dart) yang akan di-render saat aplikasi berjalan. Secara default, `ThemeData` yang akan digunakan pada aplikasi kita adalah `ThemeData.light()` yang memberikan tema "light mode" pada aplikasi kita, dengan `primaryColor` atau warna utama yang dipakai adalah biru yang dimiliki logo Flutter.
-
-Dengan memakai ThemeData, Flutter akan menyimpan data dari warna, ukuran font, maupun konfigurasi lainnya ke dalam aplikasi kita. Jika sewaktu-waktu kita tidak memperinci `Color` maupun `TextStyle` yang akan kita gunakan dalam widget kita, Flutter bisa memakai apa yang telah kita definisikan di `ThemeData`. Dengan begitu, tema dari aplikasi yang kita gunakan bisa terjaga di setiap widget dan page yang kita buat.
-
-Di dalam aplikasi ini sendiri, saya memakai `ThemeData` saya sendiri yang saya definisikan di [`AppTheme`](lib/core/themes/app_theme.dart) pada folder `themes`. Tema ini akan memberikan efek "light mode" dan tampilan ruang kosong pada widget-widget di aplikasi ini menjadi lebih kecil dan merapat.
+Library `http` di Flutter memungkinkan kita untuk **mengirim HTTP requests** seperti GET, POST, PUT dan DELETE pada endpoint server yang diberikan. Library ini juga akan menerima response dari server tersebut dalam bentuk yang diinginkan (biasanya JSON) yang dikelola dalam headers dan body dari request yang akan kita kirim. Library ini juga dapat dikatakan cukup simpel dibandingkan dengan library lainnya dalam mengurus hal menerima dan mengirimkan data ke server yang kita tuju.
 
 
-### Navigasi pada Aplikasi yang Memiliki Banyak Halaman
+### Fungsi dari `CookieRequest`
 
-Pada aplikasi yang memiliki banyak halaman/page yang dapat dikunjungi, kita bisa mengimplementasikan beberapa cara dalam berpindah-pindah halaman yang kita miliki tersebut. Salah satu cara termudah dalam melakukan navigasi antar halaman-halaman tersebut adalah dengan membuat setiap tombol untuk setiap halaman yang ada, seperti yang juga dilakukan pada aplikasi ini.
+`CookieRequest` berguna untuk mengelola state (yang juga dibantu dengan library state management `Provider`) autentikasi seperti login dan logout yang ada di aplikasi kita. `CookieRequest` menyimpan dan mengelola cookies yang aplikasi kita dapat pada saat kita melakukan login maupun logout ke server Django yang kita tuju.
 
-Namun, cara tadi tidak efisien dan tidak ideal untuk pengalaman pengguna yang baik. Biasanya, terdapat beberapa pendekatan lainnya seperti:
+`CookieRequest` juga membantuk kita untuk menyimpan cookies yang kita dapat tadi untuk disertakan dalam request yang kita akan kirim pada server Django yang kita tuju. Dengan demikian, lapisan autentikasi yang diperlukan dalam mengirim request tersebut juga bisa diatasi dengan cookie yang disimpan oleh `CookieRequest` tersebut.
 
-- **Memakai Drawer/Sidebar**
 
-    Seperti aplikasi Mental Health Tracker yang dibuat di tutorial dan aplikasi ini, navigasi antar halaman bisa diletakkan pada sisi sebelah kiri atau kanan layar yang dapat dibuka dengan memencet icon hamburger atau lainnya.
+### Mekanisme Pengiriman Data pada Flutter
 
-    <img src="https://i.pinimg.com/originals/b0/7e/cb/b07ecbe5b18fd8af5a3631e67e16b1f3.gif" width="200">
+Pada aplikasi ini, mekanisme pengiriman data akan dimulai dari memasukkan semua atribut dan nilai yang diperlukan di halaman [penambahan produk](/lib/features/product/presentation/pages/add_product.dart). Setiap field/attribute yang diperlukan untuk membuat data/produk baru akan diberikan kolom input yang juga sesuai dengan tipe data yang diharapkan oleh server Django kita.
 
-    Sumber: [Pinterest](https://i.pinimg.com/originals/b0/7e/cb/b07ecbe5b18fd8af5a3631e67e16b1f3.gif)
+Setelah semua attribute selesai diisi oleh pengguna dan siap untuk dikirim ke server, maka pengguna akan memakai tombol "Create Product" yang tersedia di bawah. Dengan memencet tombol tersebut, program akan mengirim sebuah request ke endpoint server yang terkait (disimpan pada [endpoints.dart](/lib/core/constants/endpoints.dart)). Jika berhasil, aplikasi ini akan kembali ke home page dan memberikan pesan berhasil. Jika gagal, maka akan ada snackbar yang memberikan informasi yang diterima dari server, berisi kesalahan yang dilakukan selama pengiriman data.
 
-- **Memakai Tab Bar/App Bar**
+Setelah berhasil ditambahkan, produk baru tersebut bisa dilihat pada [halaman semua produk](/lib/features/product/presentation/pages/all_product.dart) yang dimiliki oleh pengguna. Produk-produk tersebut diambil lewat request yang dikirimkan oleh program sebelum halaman yang dituju di-build oleh Flutter, lalu dirender dalam bentuk card.
 
-    Navigasi antar halaman juga bisa dilakukan dengan Tab Navigation Bar yang biasanya terletak di bagian atas aplikasi. Contoh dari aplikasi yang memakai Tab Bar adalah X (sebelumnya Twitter).
 
-    <img src="https://i.imgur.com/SlBEuRw.gif/img" width="200">
+###  Mekanisme Autentikasi dari Login, Register, hingga Logout
 
-- **Memakai Bottom Navigation Bar**
+- **Register**
 
-    Navigasi antar halaman yang paling sering digunakan pada aplikasi mobile adalah Bottom Navigation Bar. Letaknya yang berada di bawah layar memudahkan pengguna berpindah halaman dengan satu tangan, yang membuatnya lebih sering dipakai dibandingkan dengan drawer atau tab bar.
+    Pada proses register, pengguna akan diarahkan untuk membuat akun baru dengan username dan password yang baru. Jika ada error yang dikirim oleh Django (seperti username ganda, password konfirmasi tidak sama, dan lainnya) maka registrasi tidak akan berhasil dan pengguna akan menerima snackbar berisi error terkait. Jika aman, akun baru akan dibuat di server Django dan pengguna langsung diarahkan pada login page.
 
-    <img src="https://cdn.prod.website-files.com/657dc4c3b1ac103f4cb8b127/65afa398bcbdcaf9e7623d67_dot-animation.gif" width="200">
+- **Login**
 
-    Sumber: [www.thewidlarzgroup.com](https://www.thewidlarzgroup.com/blog/creating-custom-animated-bottom-tab-and-drawer-navigation)
+    Sama seperti pada proses login, pengguna akan diarahkan untuk memasukkan kredensial akunnya dan dikirim ke server Django. Jika ada error yang dikirim oleh Django (seperti username tidak ada, password salah, dan lainnya) maka proses login tidak akan dilanjutkan dan pengguna akan menerima snackbar berisi error terkait. Jika aman, pengguna akan masuk ke dalam home page dengan state cookies yang disimpan pada `CookieRequest`.
 
-<br>
+- **Logout**
 
-Secara personal, saya lebih suka untuk memakai Bottom Navigation Bar dalam menangani navigasi tiap halaman yang aplikasi saya miliki. Saya lebih sering menggunakan Bottom Navigation Bar juga karena pengalaman pengguna yang cara ini miliki lebih baik dalam memberi kemudahan pengguna dalam memakai aplikasi yang kita miliki.
+    Pada proses logout, aplikasi akan mengirimkan request untuk menghapus session dari pengguna yang sedang login sekarang. Jika berhasil, `CookieRequest` akan direset dan pengguna akan kembali ke halaman login.
+
+
+### Step-by-step dari Checklist
+
+- Memastikan deployment proyek tugas Django kamu telah berjalan dengan baik.
+
+    Deployment proyek tugas Django sudah dipush ulang dengan update terbaru sehingga dapat menerima request yang dikirimkan dari aplikasi mobile.
+
+- Mengimplementasikan fitur registrasi akun pada proyek tugas Flutter.
+
+    Fitur registrasi diimplementasikan dengan menambahkan views baru pada Django App yang baru (`authentication`), seperti berikut.
+    ```python
+    # Register a new user
+    @csrf_exempt
+    def register(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            username = data['username']
+            password1 = data['password1']
+            password2 = data['password2']
+
+            # Check if the passwords match
+            if password1 != password2:
+                return JsonResponse({
+                    "status": False,
+                    "message": "Passwords do not match."
+                }, status=400)
+
+            # Check if the username is already taken
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({
+                    "status": False,
+                    "message": "Username already exists."
+                }, status=400)
+
+            # Create the new user
+            user = User.objects.create_user(username=username, password=password1)
+            user.save()
+
+            return JsonResponse({
+                "username": user.username,
+                "status": 'success',
+                "message": "User created successfully!"
+            }, status=200)
+
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Invalid request method."
+            }, status=400)
+    ```
+
+    Lalu, registrasi akan diurus pada aplikasi Flutter lewat halaman [registrasi](lib/features/auth/presentation/pages/register_page.dart) yang dapat diakses jika pengguna ingin melakukan proses login.
+
+- Membuat halaman login pada proyek tugas Flutter.
+
+    Halaman login pada aplikasi ini diimplementasikan dengan bentuk halaman [login](lib/features/auth/presentation/pages/login_page.dart) yang akan menjadi halaman pertama yang pengguna temui saat membuka aplikasi. Pada server Django, juga dibuat views baru untuk menerima request login dari pengguna.
+    ```python
+    # Login
+    @csrf_exempt
+    def login(request):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                return JsonResponse({
+                    "username": user.username,
+                    "status": True,
+                    "message": "Successfully logged in"
+                }, status=200)
+            else:
+                return JsonResponse({
+                    "status": False,
+                    "message": "Login failed"
+                }, status=401)
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Try again"
+            }, status=401)
+    ```
+
+- Mengintegrasikan sistem autentikasi Django dengan proyek tugas Flutter.
+
+    Dengan bantuan package `pbp_django_auth` yang disediakan tim asdos, Flutter akan menyimpan isi dari cookies yang diterima aplikasi sehingga dapat digunakan untuk request-request lainnya yang membutuhkan autentikasi pengguna.
+    ```dart
+    class App extends StatelessWidget {
+        const App({super.key});
+
+        @override
+        Widget build(BuildContext context) {
+            SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+            ]);
+
+            return Provider(
+            create: (_) {
+                CookieRequest request = CookieRequest();
+                return request;
+            },
+            child: MaterialApp(
+                title: 'Celestia',
+                theme: AppTheme.lightTheme(),
+                debugShowCheckedModeBanner: false,
+                navigatorKey: nav.navigatorKey,
+                home: const Scaffold(
+                body: LoginPage(),
+                ),
+            ),
+            );
+        }
+    }
+    ```
+
+- Membuat model kustom sesuai dengan proyek aplikasi Django.
+
+    Model kustom untuk mengirim dan menerima data produk-produk yang ada di server Django dibuat pada class [Product Model](lib/features/product/data/models/product_model.dart). Model tersebut dibantu oleh Quicktype.
+
+- Membuat halaman yang berisi daftar semua item yang terdapat pada endpoint JSON di Django yang telah kamu deploy.
+
+    Halaman [AllProduct](lib/features/product/presentation/pages/all_product.dart) akan menampilkan semua produk yang diterima dari server Django dan dirender dalam bentuk sebuah card yang didefinisikan dalam widget [ProductCard](lib/features/product/presentation/widgets/product_card.dart).

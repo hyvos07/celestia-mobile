@@ -9,12 +9,12 @@ class MyHomePage extends StatelessWidget {
 
   final List<ItemHomepage> items = [
     ItemHomepage(
-      "Lihat Daftar Product",
+      "Lihat Produk Kamu",
       Icons.shopping_bag,
       BaseColors.blue2,
     ),
     ItemHomepage(
-      "Tambah Product",
+      "Tambah Produk",
       Icons.add,
       BaseColors.success,
     ),
